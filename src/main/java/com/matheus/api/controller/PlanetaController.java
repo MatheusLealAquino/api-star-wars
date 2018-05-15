@@ -7,6 +7,7 @@ package com.matheus.api.controller;
 
 import com.matheus.api.model.Planeta;
 import com.matheus.api.repository.PlanetaRepository;
+import com.matheus.api.service.PlanetaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path="/planeta")
 public class PlanetaController {
     @Autowired
-    private PlanetaRepository planetaRepository;
+    private PlanetaService planetaService;
     
     @RequestMapping(path="/", method= RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
@@ -31,6 +32,6 @@ public class PlanetaController {
                 @RequestParam("Clima") String clima,
                 @RequestParam("Terreno") String terreno ){
         
-        return planetaRepository.save(new Planeta());
+        return planetaService.salvar(new Planeta());
     }
 }
