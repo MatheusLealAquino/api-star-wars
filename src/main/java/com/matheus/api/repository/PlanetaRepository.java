@@ -15,4 +15,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
  */
 public interface PlanetaRepository extends MongoRepository<Planeta, String>{
     List<Planeta> findByNome(String nome);
+
+    List<Planeta> findByNomeLike(String nome);
 }
