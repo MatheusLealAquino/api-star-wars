@@ -5,20 +5,15 @@
  */
 package com.matheus.api.service;
 
-import com.matheus.api.model.Planeta;
-import com.matheus.api.repository.PlanetaRepository;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -50,4 +45,31 @@ public class PlanetaServiceTest {
         planetaService.salvar(nome, clima, terreno);
     }
     
+    @Test 
+    public void buscar_quantidade_de_filmes_com_sucesso(){
+        final String nomePlaneta = "Dagobah";
+        int result = planetaService.buscarQuantidadeDeFilmes(nomePlaneta);
+        
+        assertEquals(result, 3);
+    }
+    
+    @Test
+    public void buscar_quantidade_de_filmes_com_muitos_resultados(){
+        final String nomePlaneta = "a";
+        
+        thrown.expect(IllegalStateException.class);
+        thrown.expectMessage("Nome buscado {"+nomePlaneta+"} retornou muitos planetas.");
+        
+        planetaService.buscarQuantidadeDeFilmes(nomePlaneta);
+    }
+    
+    @Test
+    public void buscar_planeta_com_id_errado(){
+        final String idPlaneta = "a";
+        
+        thrown.expect(IllegalStateException.class);
+        thrown.expectMessage("Não foi encontrado nenhum planeta com esse ID {"+ idPlaneta + "}");
+        
+        planetaService.buscarPorId(idPlaneta);
+    }
 }

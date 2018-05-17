@@ -26,10 +26,11 @@ public class Planeta {
         
     }
     
-    public Planeta(String nome, String clima, String terreno) {
+    public Planeta(String nome, String clima, String terreno, int quantidadeAparicoesEmFilmes) {
         this.nome = nome;
         this.clima = clima;
         this.terreno = terreno;
+        this.quantidadeAparicoesEmFilmes = quantidadeAparicoesEmFilmes;
     }
 
     public String getId() {

@@ -6,7 +6,6 @@
 package com.matheus.api.controller;
 
 import com.matheus.api.model.Planeta;
-import com.matheus.api.model.PlanetaDTO;
 import com.matheus.api.service.PlanetaService;
 import java.util.List;
 import java.util.Optional;
@@ -24,11 +23,11 @@ import org.springframework.web.bind.annotation.RestController;
  * @author matheus
  */
 @RestController
-@RequestMapping(path="/planeta")
+@RequestMapping(path="/planetas")
 public class PlanetaController {
     @Autowired
     private PlanetaService planetaService;
-    
+            
     @RequestMapping(path="/", method= RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public Planeta adicionarPlaneta(@RequestParam("nome") String nome,
@@ -37,7 +36,7 @@ public class PlanetaController {
         return planetaService.salvar(nome, clima, terreno);
     }
     
-    @RequestMapping(path="/all", method = RequestMethod.GET)
+    @RequestMapping(path="", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public List<Planeta> listarPlanetas(){
         return planetaService.listar();
