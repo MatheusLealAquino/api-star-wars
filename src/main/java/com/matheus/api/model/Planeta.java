@@ -22,6 +22,16 @@ public class Planeta {
     private String terreno;
     private int quantidadeAparicoesEmFilmes;
 
+    public Planeta(){
+        
+    }
+    
+    public Planeta(String nome, String clima, String terreno) {
+        this.nome = nome;
+        this.clima = clima;
+        this.terreno = terreno;
+    }
+
     public String getId() {
         return id;
     }

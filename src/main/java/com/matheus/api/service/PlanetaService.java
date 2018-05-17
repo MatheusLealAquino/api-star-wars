@@ -22,14 +22,16 @@ import org.springframework.web.client.RestTemplate;
 public class PlanetaService {
     @Autowired 
     PlanetaRepository planetaRepository;
-    
-    public Planeta salvar(String nome, String clima, String terreno){
-        Planeta planeta = new Planeta();
-        planeta.setNome(nome);
-        planeta.setClima(clima);
-        planeta.setTerreno(terreno);
         
-        return planetaRepository.save(planeta);
+    public Planeta salvar(String nome, String clima, String terreno){
+        if(!nome.equals("") || !clima.equals("") || !terreno.equals("")){
+            /* int quantidaDeFilmes = buscarQuantidadeFilmes(nome);
+            Planeta planeta = new Planeta(nome, clima, terreno, quantidaDeFilmes);*/
+            Planeta planeta = new Planeta(nome, clima, terreno);
+            return planetaRepository.save(planeta);
+        }else{
+            throw new IllegalStateException("Um ou mais parâmetros estão vazio(s).");
+        }
     }
     
     public Optional<Planeta> buscarPorId(String id){
@@ -48,9 +50,9 @@ public class PlanetaService {
         planetaRepository.deleteById(id);
     }
     
-    public PlanetaDTO buscarQuantidadeFilmes(Planeta planeta){
+    public PlanetaDTO buscarQuantidadeFilmes(String nomePlaneta){
         RestTemplate restTemplate = new RestTemplate();
-        String url = "https://swapi.co/api/planets/?search="+planeta.getNome();
+        String url = "https://swapi.co/api/planets/?search="+nomePlaneta;
         PlanetaDTO planetaDTO = restTemplate.getForObject(url, PlanetaDTO.class);
         return planetaDTO;
     }
